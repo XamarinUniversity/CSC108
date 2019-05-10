@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Set breakpoints and inspect values</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>Learning C# with Xamarin: Debugging and Exceptions</header>
+
+    <section id="main">
+
+        <h1 id="page-title"></h1>
+
+        <h2>Duration</h2>
+        <p>10 minutes</p>
+
+        <!-- - - - - - - - - Goals - - - - - - - - -->
+        <h2 id="goals">Lab goals</h2>
+        <p>
+            In this exercise, you will set new breakpoints to signal the debugger to run the program and stop at a set line.
+            Next, you will attach conditions to the breakpoints and finally, you will view the locals, watch, and
+            call-stack windows to review methods called, objects and variables in your program.
+            If you use the lab instructions, your UI will look something like:
+        </p>
+        <img src="./res/images/completed-lab1.PNG" />
+
+        <h2>Required Assets</h2>
+        <p>
+            The provided <strong>Resources</strong> folder for this part contains a subfolder named <strong>Start</strong> with a solution
+            you will use as starter code. The <strong>Completed</strong> subfolder contains a completed project you can use to check your work.
+        </p>
+
+        <!-- - - - - - - - - Steps - - - - - - - - -->
+        <h1 id="steps">Steps</h1>
+        <p>
+            This is a group exercise, intended to be done with the instructor in an online class. You can also use the step-by-step instructions to
+            do the exercise on your own. If you are working on your own, we encourage you to utilize the high-level goals defined above to work
+            through the code, relying on the instructions below to fill in any necessary details.
+        </p>
+
+        <h2>Working with the Debugger</h2>
+        <p>
+            You will be using the <b>Debugging</b> project from the <b>Start</b> folder. You are going to practice adding new breakpoints,
+            attaching conditions to the breakpoints, and running the program to view results in the breakpoint window.
+            Next, you will utilize the watch window to observe the values and finally, view the call-stack window to see which methods
+            led up to the current method call.
+        </p>
+
+        <ol>
+            <li>
+                Launch either Visual Studio for Mac or Windows and open the Debugging file in the <b>Resources/Start</b> folder.
+            </li>
+            <li>
+                Open the <b>Person.cs</b> file located in the <b>Debugging</b> project.
+            </li>
+            <img src="./res/images/lab1-step2.png" class="indent-none" />
+
+            <li>
+                Locate the <code>HaveBirthday</code> method in the <code>Person</code> class and
+                add a new breakpoint by clicking in the gutter of the code window or use the <b>New Breakpoint Function</b> located on the Breakpoint tab.
+                Note that the "gutter" is the left edge of the text-editor window.
+            </li>
+            <img src="./res/images/lab1-step3.png" class="indent-none" width="800"/>
+
+            <li>
+                Run the application in the debugger by clicking the "Play" or "Run" button in the toolbar, alternatively, you can press <b>F5</b> to run the program in the debugger.
+            </li>
+
+            <li>
+                The application will <em>stop</em> in the debugger at your breakpoint, highlighting the line.
+                You can hover your mouse pointer over the use of the <code>Name</code> or <code>Age</code> property in the method and see their current value.
+            </li>
+            <img src="./res/images/lab1-step6a.png" class="indent-none" width="800"/>
+
+            <li>
+                When you are ready to continue, press the <em>Continue Execution</em> button in the toolbar - this will look like a Play button icon in Visual Studio. This toolbar is only present when you are debugging an application.
+            </li>
+            <img src="./res/images/play-button.png" class="indent-none" />
+
+            <li>
+                The debugger should stop each time the methods are called and this will happen several times in this application.
+                You can use the locals window to view all local objects and variables within a scope while the debugger is stopped.
+            </li>
+            <img src="./res/images/lab1-step5.png" class="indent-none" width="800"/>
+
+            <li>
+                You can also use the Watch window to view the values of an object. This allows you to type in new values to explore
+                and even <em>change</em> the values by double-clicking on the presented value and entering a new value.
+            </li>
+            <img src="./res/images/lab1-step6.png" class="indent-none" width="800"/>
+
+            <li>
+                Look at the call-stack window to see which method called the current method. The yellow arrow indicates
+                the current method while Debugging.Program.Main is the function that called the current method.
+            </li>
+            <img src="./res/images/lab1-step7.png" class="indent-none" />
+
+            <li>
+                Remove your breakpoint by clicking on the breakpoint symbol in the gutter and then use the <em>Continue Execution</em>
+                button to let the application run.
+            </li>
+            <img src="./res/images/lab1-output.png">
+
+            <li>
+                Notice the output shows that none of the people have siblings. However, if you look at the data, many of them do, in fact, have a sibling count.
+                Your goal is to now isolate this bug and identify exactly what is happening using breakpoints and the watch window.
+                Start by setting a breakpoint inside the <code>DescribeFamily</code> method.
+            </li>
+
+            <li>
+                You only care about people that have siblings, but your breakpoint will currently <em>always</em> stop the program.
+                Next, you will add a condition to the breakpoint to only stop when the <code>Siblings</code> property is not zero.
+            </li>
+
+            <li>
+                Right-click on the breakpoint glyph in the gutter and select <b>Breakpoint Properties</b> (or <b>Properties</b>).
+                This will display a dialog where you can add a condition to the breakpoint. We want to test for <code>Siblings</code> to be > 0.
+            </li>
+            <img src="./res/images/conditional-breakpoint.png"  width="700"/>
+
+            <li>
+                Run the application in the debugger - it should stop only when the sibling count is > 0. Use the watch window, or hover over the value to see the count.
+            </li>
+            <img src="./res/images/lab1-hoverbug.png" width="700"/>
+
+            <li>
+                Try stepping through the <code>if</code> condition, using the <b>Step Into</b> button on the toolbar
+            </li>
+            <img src="./res/images/step-into.png" />
+
+            <li>
+                Notice it does <em>not</em> step into the correct branch. Why? What do you need to do to fix it?
+            </li>
+
+            <li>
+                Apply your fix and run the application again to make sure it works now.
+            </li>
+        </ol>
+        <p>
+            <a href="#" onclick="toggleCode(this,'fixError');return false;" class="uiitem">Show Code</a>
+      <div class="indent-large" id="fixError" style="display:none;">
+<pre class="prettyprint">
+public string DescribeFamily()
+{
+   string siblingText;
+   if (Siblings <span class="highlight">==</span> 0) {
+       siblingText = " has no siblings";
+   } else {
+       siblingText = " has " + Siblings + " siblings";
+   }
+   return Name + siblingText;
+}
+</pre>
+            </div>
+        </p>
+
+        <h1>Summary</h1>
+        <p>
+            Congratulations! In this lab exercise, you completed the debugging process which included using breakpoints, viewing the locals window,
+            reviewing the values of objects in the watch window, and reviewing the methods that called current methods.
+        </p>
+
+        <div class="align-right">
+            <a href="../Start%20Here.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft.</footer>
+</body>
+</html>
